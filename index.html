@@ -132,6 +132,61 @@
         </div>
     </section>
 
+      <h1>Membuat Tabbed Interface</h1>
+    
+    <div class="tabs-container">
+        <!-- Wadah untuk tombol-tombol tab -->
+        <div class="tab-buttons">
+            <button class="tab-button active" data-for-tab="1">Tab 1</button>
+            <button class="tab-button" data-for-tab="2">Tab 2</button>
+            <button class="tab-button" data-for-tab="3">Tab 3</button>
+        </div>
+
+        <!-- Wadah untuk konten-konten tab -->
+        <div class="tabs-content">
+            <div class="tab-content active" data-tab="1">
+                <h2>Konten untuk Tab 1</h2>
+                <p>Ini adalah isi dari tab pertama.</p>
+                <img src="Photos/logotelkom.png" alt="logo">
+            </div>
+            <div class="tab-content" data-tab="2">
+                <h2>Konten untuk Tab 2</h2>
+                <p>Ini adalah isi dari tab kedua. .</p>
+            </div>
+            <div class="tab-content" data-tab="3">
+                <h2>Konten untuk Tab 3</h2>
+                <p>Ini adalah isi dari tab ketiga.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Menggunakan event delegation untuk efisiensi
+        const tabsContainer = document.querySelector('.tabs-container');
+        const tabButtonsContainer = tabsContainer.querySelector('.tab-buttons');
+        const tabsContentContainer = tabsContainer.querySelector('.tabs-content');
+
+        tabButtonsContainer.addEventListener('click', e => {
+            // 1. Pastikan yang di-klik adalah tombol tab
+            const clickedButton = e.target.closest('.tab-button');
+            if (!clickedButton) return;
+
+            // 2. Hapus kelas 'active' dari semua tombol dan konten
+            tabButtonsContainer.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+            tabsContentContainer.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+
+            // 3. Tambahkan kelas 'active' ke tombol yang di-klik
+            clickedButton.classList.add('active');
+
+            // 4. Tampilkan konten yang sesuai
+            const tabNumber = clickedButton.dataset.forTab;
+            const contentToShow = tabsContentContainer.querySelector(`.tab-content[data-tab="${tabNumber}"]`);
+            
+            if (contentToShow) {
+                contentToShow.classList.add('active');
+            }
+        });
+    </script>
 
   
 </body>
